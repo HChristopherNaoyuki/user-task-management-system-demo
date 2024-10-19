@@ -14,14 +14,15 @@ public class Main
         SearchManager searchManager = new SearchManager();
 
         // User Registration and Login
-        String userName = JOptionPane.showInputDialog("Enter Username:");
-        String password = JOptionPane.showInputDialog("Enter Password:");
-        String firstName = JOptionPane.showInputDialog("Enter First Name:");
-        String lastName = JOptionPane.showInputDialog("Enter Last Name:");
+        String userName = JOptionPane.showInputDialog("Welcome! Please enter your username (must include an underscore):");
+        String password = JOptionPane.showInputDialog("Please enter a password (minimum 8 characters):");
+        String firstName = JOptionPane.showInputDialog("Please enter your first name:");
+        String lastName = JOptionPane.showInputDialog("Please enter your last name:");
         
         String registrationMessage = ums.registerUser(userName, password, firstName, lastName);
         JOptionPane.showMessageDialog(null, registrationMessage);
 
+        // Attempt user login
         boolean loggedIn = ums.loginUser(userName, password);
         JOptionPane.showMessageDialog(null, ums.returnLoginStatus(loggedIn));
 
@@ -32,25 +33,34 @@ public class Main
 
             while (continueManagingTasks) 
             {
-                int menuOption = Integer.parseInt(JOptionPane.showInputDialog("1: Add Tasks, 2: Search Tasks, 3: Quit"));
-
-                switch (menuOption) 
+                String menuOptions = "1: Add Tasks\n2: Search Tasks\n3: Quit";
+                String menuInput = JOptionPane.showInputDialog(menuOptions);
+                
+                try 
                 {
-                    case 1:
-                        taskManager.addTasks();
-                        break;
-                    case 2:
-                        String[] tasks = {"Create Login", "Create Add Features", "Create Reports", "Create Arrays"};
-                        String[] developers = {"Mike Smith", "Edward Harrington", "Samantha Paulson", "Glenda Oberholzer"};
-                        String searchTerm = JOptionPane.showInputDialog("Enter task name to search:");
-                        String searchResult = searchManager.searchByTask(searchTerm, tasks, developers);
-                        JOptionPane.showMessageDialog(null, searchResult);
-                        break;
-                    case 3:
-                        continueManagingTasks = false;
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(null, "Invalid option. Please try again.");
+                    int menuOption = Integer.parseInt(menuInput);
+                    switch (menuOption) 
+                    {
+                        case 1:
+                            taskManager.addTasks();
+                            break;
+                        case 2:
+                            String[] tasks = {"Create Login", "Create Add Features", "Create Reports", "Create Arrays"};
+                            String[] developers = {"Mike Smith", "Edward Harrington", "Samantha Paulson", "Glenda Oberholzer"};
+                            String searchTerm = JOptionPane.showInputDialog("Enter the task name you want to search:");
+                            String searchResult = searchManager.searchByTask(searchTerm, tasks, developers);
+                            JOptionPane.showMessageDialog(null, searchResult);
+                            break;
+                        case 3:
+                            continueManagingTasks = false;
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null, "Invalid option. Please select a valid menu item.");
+                    }
+                } 
+                catch (NumberFormatException e) 
+                {
+                    JOptionPane.showMessageDialog(null, "Invalid input. Please enter a number corresponding to the menu options.");
                 }
             }
         }

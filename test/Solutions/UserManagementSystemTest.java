@@ -3,27 +3,30 @@ package Solutions;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * Unit tests for UserManagementSystem functionalities.
+ */
 public class UserManagementSystemTest 
 {
-    // Test 1: Check successful user registration
+    // Test successful user registration
     @Test
     public void testRegisterUserSuccess() 
     {
         UserManagementSystem ums = new UserManagementSystem();
         String result = ums.registerUser("valid_user", "validPassword", "First", "Last");
-        assertEquals("User successfully registered", result);
+        assertEquals("User successfully registered!", result);
     }
 
-    // Test 2: Check registration with invalid username (no underscore)
+    // Test registration with invalid username (no underscore)
     @Test
     public void testRegisterUserInvalidUsername() 
     {
         UserManagementSystem ums = new UserManagementSystem();
         String result = ums.registerUser("invaliduser", "validPassword", "First", "Last");
-        assertEquals("Invalid username: must contain an underscore and be 5 characters or less.", result);
+        assertEquals("Invalid username: must contain an underscore and be more than 4 characters.", result);
     }
 
-    // Test 3: Check registration with invalid password (too short)
+    // Test registration with invalid password (too short)
     @Test
     public void testRegisterUserInvalidPassword() 
     {
@@ -32,33 +35,33 @@ public class UserManagementSystemTest
         assertEquals("Invalid password: must be at least 8 characters.", result);
     }
 
-    // Test 4: Check valid username format
+    // Test valid username format
     @Test
-    public void testCheckUserNameValid() 
+    public void testIsUserNameValid() 
     {
         UserManagementSystem ums = new UserManagementSystem();
-        assertTrue(ums.checkUserName("valid_user"));
+        assertTrue(ums.isUserNameValid("valid_user"));
     }
 
-    // Test 5: Check invalid username formats
+    // Test invalid username formats
     @Test
-    public void testCheckUserNameInvalid() 
+    public void testIsUserNameInvalid() 
     {
         UserManagementSystem ums = new UserManagementSystem();
-        assertFalse(ums.checkUserName("invaliduser")); // No underscore
-        assertFalse(ums.checkUserName("user@name"));   // Contains special character
+        assertFalse(ums.isUserNameValid("invaliduser")); // No underscore
+        assertFalse(ums.isUserNameValid("user@name"));   // Contains special character
     }
 
-    // Test 6: Check password complexity requirements
+    // Test password complexity requirements
     @Test
-    public void testCheckPasswordComplexity() 
+    public void testIsPasswordComplex() 
     {
         UserManagementSystem ums = new UserManagementSystem();
-        assertTrue(ums.checkPasswordComplexity("validPassword"));
-        assertFalse(ums.checkPasswordComplexity("short")); // Too short
+        assertTrue(ums.isPasswordComplex("validPassword"));
+        assertFalse(ums.isPasswordComplex("short")); // Too short
     }
 
-    // Test 7: Check successful login
+    // Test successful login
     @Test
     public void testLoginUserSuccess() 
     {
@@ -67,7 +70,7 @@ public class UserManagementSystemTest
         assertTrue(ums.loginUser("valid_user", "validPassword"));
     }
 
-    // Test 8: Check login failure with incorrect credentials
+    // Test login failure with incorrect credentials
     @Test
     public void testLoginUserFailure() 
     {
@@ -77,7 +80,7 @@ public class UserManagementSystemTest
         assertFalse(ums.loginUser("valid_user", "wrongPassword"));   // Wrong password
     }
 
-    // Test 9: Check return login status for a successful login
+    // Test return login status for a successful login
     @Test
     public void testReturnLoginStatusSuccess() 
     {
@@ -86,7 +89,7 @@ public class UserManagementSystemTest
         assertEquals("Welcome First Last, great to see you again.", ums.returnLoginStatus(true));
     }
 
-    // Test 10: Check return login status for a failed login
+    // Test return login status for a failed login
     @Test
     public void testReturnLoginStatusFailure() 
     {

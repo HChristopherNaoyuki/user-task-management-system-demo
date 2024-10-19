@@ -14,7 +14,7 @@ public class TaskManager
      */
     public void addTasks() 
     {
-        int numTasks = Integer.parseInt(JOptionPane.showInputDialog("Enter number of tasks:"));
+        int numTasks = Integer.parseInt(JOptionPane.showInputDialog("How many tasks would you like to add?"));
         totalHours = 0;
 
         for (int i = 0; i < numTasks; i++) 
@@ -25,13 +25,13 @@ public class TaskManager
             totalHours += duration;
 
             String taskID = createTaskID(taskName, i);
-            String taskStatus = JOptionPane.showInputDialog("Please select task status: To Do, Doing, Done:");
-            String taskDetails = printTaskDetails(taskName, i, taskDescription, duration, taskID, taskStatus);
+            String taskStatus = JOptionPane.showInputDialog("Select task status: To Do, Doing, Done:");
+            String taskDetails = formatTaskDetails(taskName, i, taskDescription, duration, taskID, taskStatus);
 
             JOptionPane.showMessageDialog(null, taskDetails);
         }
 
-        JOptionPane.showMessageDialog(null, "Total task hours: " + totalHours);
+        JOptionPane.showMessageDialog(null, "Total task hours accumulated: " + totalHours + " hours.");
     }
 
     /**
@@ -47,7 +47,7 @@ public class TaskManager
     }
 
     /**
-     * Prints the details of a task.
+     * Formats the details of a task into a readable string.
      * 
      * @param taskName The name of the task.
      * @param taskNumber The number of the task.
@@ -57,9 +57,9 @@ public class TaskManager
      * @param taskStatus The status of the task.
      * @return A formatted string containing task details.
      */
-    private String printTaskDetails(String taskName, int taskNumber, String taskDescription, int duration, String taskID, String taskStatus) 
+    private String formatTaskDetails(String taskName, int taskNumber, String taskDescription, int duration, String taskID, String taskStatus) 
     {
-        return String.format("Task: %s, Number: %d, Description: %s, Duration: %d hours, ID: %s, Status: %s",
+        return String.format("Task: %s\nNumber: %d\nDescription: %s\nDuration: %d hours\nID: %s\nStatus: %s",
                              taskName, taskNumber, taskDescription, duration, taskID, taskStatus);
     }
 }

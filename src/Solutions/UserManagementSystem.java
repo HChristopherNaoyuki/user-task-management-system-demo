@@ -1,5 +1,8 @@
 package Solutions;
 
+/**
+ * Manages user registration and login functionalities.
+ */
 public class UserManagementSystem 
 {
     private String storedUserName;
@@ -7,16 +10,24 @@ public class UserManagementSystem
     private String storedFirstName;
     private String storedLastName;
 
-    // Method to register a user
+    /**
+     * Registers a new user with given credentials.
+     * 
+     * @param userName The username for registration.
+     * @param password The password for registration.
+     * @param firstName The user's first name.
+     * @param lastName The user's last name.
+     * @return A message indicating success or failure of registration.
+     */
     public String registerUser(String userName, String password, String firstName, String lastName) 
     {
-        // Check for valid username
-        if (!checkUserName(userName)) 
+        // Validate username
+        if (!isUserNameValid(userName)) 
         {
-            return "Invalid username: must contain an underscore and be 5 characters or less.";
+            return "Invalid username: must contain an underscore and be more than 4 characters.";
         }
-        // Check for valid password
-        if (!checkPasswordComplexity(password)) 
+        // Validate password
+        if (!isPasswordComplex(password)) 
         {
             return "Invalid password: must be at least 8 characters.";
         }
@@ -26,31 +37,50 @@ public class UserManagementSystem
         storedPassword = password;
         storedFirstName = firstName;
         storedLastName = lastName;
-        return "User successfully registered";
+        return "User successfully registered!";
     }
 
-    // Method to check username format
-    public boolean checkUserName(String userName) 
+    /**
+     * Validates the format of the username.
+     * 
+     * @param userName The username to validate.
+     * @return true if valid, false otherwise.
+     */
+    public boolean isUserNameValid(String userName) 
     {
-        // Username must be greater than 4 characters and contain an underscore
         return userName.length() > 4 && userName.contains("_");
     }
 
-    // Method to check password complexity
-    public boolean checkPasswordComplexity(String password) 
+    /**
+     * Checks the complexity requirements for the password.
+     * 
+     * @param password The password to check.
+     * @return true if valid, false otherwise.
+     */
+    public boolean isPasswordComplex(String password) 
     {
-        // Password must be at least 8 characters
         return password.length() >= 8;
     }
 
-    // Method to log in a user
+    /**
+     * Logs in a user with the provided credentials.
+     * 
+     * @param userName The username to log in with.
+     * @param password The password to log in with.
+     * @return true if login is successful, false otherwise.
+     */
     public boolean loginUser(String userName, String password) 
     {
-        // Check if provided credentials match stored credentials
-        return storedUserName != null && storedUserName.equals(userName) && storedPassword != null && storedPassword.equals(password);
+        return storedUserName != null && storedUserName.equals(userName) &&
+               storedPassword != null && storedPassword.equals(password);
     }
 
-    // Method to return login status message
+    /**
+     * Returns a message based on the login status.
+     * 
+     * @param loggedIn The status of the login attempt.
+     * @return A welcome message or an error message.
+     */
     public String returnLoginStatus(boolean loggedIn) 
     {
         if (loggedIn) 

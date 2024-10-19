@@ -24,6 +24,6 @@ public class SearchManager
                 return tasks[i] + " is assigned to " + developers[i];
             }
         }
-        return "No tasks that match the search term found.";
+        return "No tasks match the search term: " + taskName + ". Please try again.";
     }
 }
